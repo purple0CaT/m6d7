@@ -6,6 +6,7 @@ const post = express.Router();
 
 post
   .route("/")
+  // == GET
   .get(async (req, res, next) => {
     try {
       const posts = await PostModel.find(
@@ -22,6 +23,7 @@ post
       next(createHttpError(404, { message: error.errors }));
     }
   })
+  // == POST
   .post(async (req, res, next) => {
     try {
       const newPost = new PostModel(req.body);
