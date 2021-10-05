@@ -13,8 +13,10 @@ post
           title: { $regex: req.query.search },
         },
         { __v: 0 }
-      ).sort(req.query.category && { category: req.query.category });
-      console.log(req.query.search);
+      )
+        .sort(req.query.category && { category: req.query.category })
+        .limit(5)
+        .skip(req.query.page ? req.query.page * 5 : 0);
       res.send(posts);
     } catch (error) {
       next(createHttpError(404, { message: error.errors }));
