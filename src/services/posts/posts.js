@@ -10,10 +10,11 @@ post
     try {
       const posts = await PostModel.find(
         req.query.search && {
-          $text: { $search: req.query.search },
+          title: { $regex: req.query.search },
         },
         { __v: 0 }
       ).sort(req.query.category && { category: req.query.category });
+      console.log(req.query.search);
       res.send(posts);
     } catch (error) {
       next(createHttpError(404, { message: error.errors }));
